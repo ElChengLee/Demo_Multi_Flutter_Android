@@ -5,15 +5,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_item_view/main.dart';
 import 'package:flutter_sample2/main.dart';
 
-void main() {
-  runApp(const MyApp());
+const channel = "channel_flutter";
+const platformChannel = MethodChannel(channel);
 
-  const platform = MethodChannel('com.example.open_widget');
-  platform.setMethodCallHandler((call) {
-    if (call.method == 'openWidget') {
-      runApp(MyApp());
-    }
-  });
+void main() {
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -21,16 +17,28 @@ class MyApp extends StatelessWidget {
 
   MyApp({this.initialRoute = '/'});
 
-// This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Routes',
-      initialRoute: '/',
-      routes: {
-        '/': (context) => SplashScreen(),
-        '/module1': (context) => const AppSample1(),
-        '/module2': (context) => const AppSample2(),
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+//      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      initialRoute: "/",
+      onGenerateRoute: (settings) {
+        print("Binhnv13 - ${settings.name}");
+        if (settings.name == "DetailPage") {
+          return MaterialPageRoute(builder: (context) {
+            return AppSample1();
+          });
+        } else {
+          return MaterialPageRoute(
+            builder: (context) {
+              return AppSample2();
+            },
+          );
+        }
       },
     );
   }
