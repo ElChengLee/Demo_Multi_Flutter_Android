@@ -9,34 +9,25 @@ class AppSample2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or press Run > Flutter Hot Reload in a Flutter IDE). Notice that the
-        // counter didn't reset back to zero; the application is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      title: 'Flutter App',
+      routes: Library1Routes.routes,
+      initialRoute: Library1Routes.route1,
     );
   }
 }
 
+class Library1Routes {
+  static const String route1 = 'AppSample2route1';
+  static const String route2 = 'AppSample2route2';
+
+  static final routes = <String, WidgetBuilder>{
+    route1: (context) => const MyHomePage(),
+    route2: (context) => const MyHomePage2(),
+  };
+}
+
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
+  const MyHomePage({super.key, this.title = ""});
 
   final String title;
 
@@ -45,31 +36,59 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
       body: Container(
         color: Colors.amber,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              const Text(
+                'MyHomePage 2 Router 1',
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, Library1Routes.route2);
+                },
+                child: const Text('Go to Screen 2'),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class MyHomePage2 extends StatefulWidget {
+  const MyHomePage2({super.key, this.title = ""});
+
+  final String title;
+
+  @override
+  State<MyHomePage2> createState() => _MyHomePageState2();
+}
+
+class _MyHomePageState2 extends State<MyHomePage2> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: Container(
+        color: Colors.blueAccent,
         child: const Center(
-          // Center is a layout widget. It takes a single child and positions it
-          // in the middle of the parent.
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
-                'Detail screen 2',
+                'MyHomePage 2 Router 2',
               ),
             ],
           ),

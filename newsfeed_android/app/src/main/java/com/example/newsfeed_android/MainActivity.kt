@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
 		val flutterEngine = FlutterEngine(this)
 
 		// Configure an initial route.
-		flutterEngine.navigationChannel.setInitialRoute("DetailPage");
+		flutterEngine.navigationChannel.setInitialRoute("AppSample2route1");
 		// Start executing Dart code to pre-warm the FlutterEngine.
 		flutterEngine.dartExecutor.executeDartEntrypoint(
 			DartExecutor.DartEntrypoint.createDefault()
@@ -64,8 +64,9 @@ class MainActivity : AppCompatActivity() {
 		FlutterEngineCache
 			.getInstance()
 			.put(FLUTTER_ENGINE_NAME, flutterEngine)
-
+		
 		val flutterEngine1 = FlutterEngine(this)
+		flutterEngine1.navigationChannel.setInitialRoute("AppSample1route1");
 		// Start executing Dart code to pre-warm the FlutterEngine.
 		flutterEngine1.dartExecutor.executeDartEntrypoint(
 			DartExecutor.DartEntrypoint.createDefault()
